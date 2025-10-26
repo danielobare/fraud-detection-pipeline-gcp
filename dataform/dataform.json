@@ -1,10 +1,11 @@
 {
   "warehouse": "bigquery",
-  "defaultSchema": "fraud_analytics",
+  "defaultSchema": "fraud_detection",
   "assertionSchema": "assertions",
-  "defaultDatabase": "your-gcp-project-id",
+  "defaultDatabase": "zippy-athlete-470710-b2",
+  "defaultLocation": "US",
   "vars": {
-    "source_dataset": "your_bigquery_dataset_name",
+    "source_dataset": "fraud_detection",
     "transactions_table": "paysim1"
   }
 }
