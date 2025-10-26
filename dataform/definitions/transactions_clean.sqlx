@@ -1,9 +1,9 @@
 config {
   type: "table",
-  description: "Cleaned transactions dataset"
+  tags: ["cleaning"]
 }
 
-SELECT
+select
   step,
   type,
   amount,
@@ -15,6 +15,9 @@ SELECT
   newbalanceDest,
   isFraud,
   isFlaggedFraud
-FROM
-  ${ref("transactions_raw")}
-WHERE amount > 0
+from
+  `${var("source_dataset")}.${var("transactions_table")}`
+where
+  amount > 0
+  and oldbalanceOrg >= 0
+  and newbalanceOrig >= 0

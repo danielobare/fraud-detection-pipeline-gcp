@@ -1,12 +1,19 @@
 config {
   type: "table",
-  description: "Feature-engineered dataset for fraud modeling"
+  tags: ["feature_engineering"]
 }
 
-SELECT
-  *,
-  (oldbalanceOrg - newbalanceOrig - amount) AS balance_discrepancy,
-  SAFE_DIVIDE(amount, oldbalanceOrg + 1) AS amount_to_balance_ratio,
-  IF(type IN ('TRANSFER', 'CASH_OUT'), 1, 0) AS high_risk_type
-FROM
+select
+  nameOrig,
+  nameDest,
+  count(*) as tx_count,
+  sum(amount) as total_amount,
+  avg(amount) as avg_amount,
+  max(amount) as max_amount,
+  sum(case when isFraud = 1 then 1 else 0 end) as fraud_count,
+  sum(case when isFraud = 1 then amount else 0 end) as total_fraud_amount,
+  safe_divide(sum(case when isFraud = 1 then 1 else 0 end), count(*)) as fraud_ratio
+from
   ${ref("transactions_clean")}
+group by
+  nameOrig, nameDest
