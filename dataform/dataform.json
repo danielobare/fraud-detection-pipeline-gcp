@@ -1,0 +1,10 @@
+{
+  "warehouse": "bigquery",
+  "defaultSchema": "fraud_analytics",
+  "assertionSchema": "assertions",
+  "defaultDatabase": "your-gcp-project-id",
+  "vars": {
+    "source_dataset": "your_bigquery_dataset_name",
+    "transactions_table": "paysim1"
+  }
+}

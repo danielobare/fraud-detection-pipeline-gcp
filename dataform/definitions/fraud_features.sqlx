@@ -1,0 +1,12 @@
+config {
+  type: "table",
+  description: "Feature-engineered dataset for fraud modeling"
+}
+
+SELECT
+  *,
+  (oldbalanceOrg - newbalanceOrig - amount) AS balance_discrepancy,
+  SAFE_DIVIDE(amount, oldbalanceOrg + 1) AS amount_to_balance_ratio,
+  IF(type IN ('TRANSFER', 'CASH_OUT'), 1, 0) AS high_risk_type
+FROM
+  ${ref("transactions_clean")}

@@ -1,0 +1,20 @@
+config {
+  type: "table",
+  description: "Cleaned transactions dataset"
+}
+
+SELECT
+  step,
+  type,
+  amount,
+  nameOrig,
+  oldbalanceOrg,
+  newbalanceOrig,
+  nameDest,
+  oldbalanceDest,
+  newbalanceDest,
+  isFraud,
+  isFlaggedFraud
+FROM
+  ${ref("transactions_raw")}
+WHERE amount > 0
